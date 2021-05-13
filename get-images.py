@@ -10,14 +10,14 @@ cap.set(4, 600)
 IMG_FOLDER_PATH = r'C:\Users\mikeg\dev\MachineLearning\music-gesture-steering\image_data'
 
 IMG_CLASS_DICT = {
-    0:'up',
-    1:'right',
-    2:'down',
-    3:'left',
-    4:'none'
+    0:'down',
+    1:'none',
+    2:'start',
+    3:'stop',
+    4:'up'
 }
 
-print('insert wanted class: 0:up, 1:right, 2:down, 3:left, 4:none')
+print('insert wanted class: 0:down, 1:none, 2:start, 3:stop, 4:up')
 num = int(input())
 print('press s to start')
 start = False
@@ -26,11 +26,12 @@ while(True):
     if(count == 300):
         break
     ret, frame = cap.read()
-    frame = cv2.flip(frame, 1)
     cv2.rectangle(frame, (398,98), (902,602), (255,255,255), 2)
+    frame = cv2.flip(frame, 1)
     cv2.imshow('frame',frame)
   
     if(start):
+        frame = cv2.flip(frame, 1)
         roi = frame[100:600, 400:900]
         save_path = os.path.join(IMG_FOLDER_PATH, IMG_CLASS_DICT[num], '{}.jpg'.format(count+1))
         print(save_path)
